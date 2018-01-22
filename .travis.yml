@@ -1,4 +1,7 @@
 language: node_js
+dist: trusty
+addons:
+  chrome: stable # have Travis install chrome stable.
 node_js:
   - "5"
 script:

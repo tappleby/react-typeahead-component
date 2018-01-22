@@ -20,8 +20,12 @@ module.exports = {
     'react-dom': reactDomExternal
   },
   module: {
-    loaders: [
-      { test: /\.(js|jsx)$/, loaders: ['babel-loader'], exclude: /node_modules/ }
+    rules: [
+      { 
+        test: /\.(js|jsx)$/, 
+        loader: 'babel-loader', 
+        exclude: /node_modules/
+      }
     ]
   },
   output: {
