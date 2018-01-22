@@ -2,7 +2,7 @@
 
 var React = require('react'),
     ReactDOM = require('react-dom'),
-    TestUtils = require('react-addons-test-utils'),
+    TestUtils = require('react-dom/test-utils'),
     Typeahead = require('../typeahead');
 
 describe('Typeahead', function() {

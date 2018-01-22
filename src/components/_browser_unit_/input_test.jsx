@@ -2,7 +2,7 @@
 
 var React = require('react'),
     ReactDOM = require('react-dom'),
-    TestUtils = require('react-addons-test-utils'),
+    TestUtils = require('react-dom/test-utils'),
     Input = require('../input');
 
 describe('Input', function() {
