@@ -235,30 +235,30 @@ describe('Typeahead', function() {
         });
 
         it('should call `onChange` if passed in', function() {
-            var handleChange = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onChange={handleChange}
-                    />
-                );
+            var handleChange = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onChange={handleChange}
+                />
+            );
 
             typeaheadInstance.handleChange({ target: { value: '' } });
             expect(handleChange).to.have.been.called.once;
         });
 
         it('should pass the event object to `onChange` if passed in', function() {
-            var handleChange = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onChange={handleChange}
-                    />
-                ),
-                eventData = {
-                    timestamp: Date.now(),
-                    target: {
-                        value: ''
-                    }
-                };
+            var handleChange = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onChange={handleChange}
+                />
+            ),
+            eventData = {
+                timestamp: Date.now(),
+                target: {
+                    value: ''
+                }
+            };
 
             typeaheadInstance.handleChange(eventData);
             expect(handleChange).to.have.been.calledWith(eventData);
@@ -268,8 +268,8 @@ describe('Typeahead', function() {
     describe('#handleFocus', function() {
         it('should show the dropdown on focus', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead />
-                );
+                <Typeahead />
+            );
 
             typeaheadInstance.handleFocus();
             expect(typeaheadInstance.state.isDropdownVisible).to.be.equal(true);
@@ -277,27 +277,27 @@ describe('Typeahead', function() {
 
 
         it('should call `onFocus` if passed in', function() {
-            var handleFocus = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onFocus={handleFocus}
-                    />
-                );
+            var handleFocus = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onFocus={handleFocus}
+                />
+            );
 
             typeaheadInstance.handleFocus();
             expect(handleFocus).to.have.been.called.once;
         });
 
         it('should pass the event object to `onFocus` if passed in', function() {
-            var handleFocus = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onFocus={handleFocus}
-                    />
-                ),
-                eventData = {
-                    timestamp: Date.now()
-                };
+            var handleFocus = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onFocus={handleFocus}
+                />
+            );
+            var eventData = {
+                timestamp: Date.now()
+            };
 
             typeaheadInstance.handleFocus(eventData);
             expect(handleFocus).to.have.been.calledWith(eventData);
@@ -307,13 +307,13 @@ describe('Typeahead', function() {
     describe('#handleClick', function() {
         it('should show the hint on click', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        handleHint={function() {
-                            return 'ezequiel'
-                        }}
-                    />
-                );
+                <Typeahead
+                    inputValue='eze'
+                    handleHint={function() {
+                        return 'ezequiel'
+                    }}
+                />
+            );
 
             typeaheadInstance.handleClick();
             expect(typeaheadInstance.state.isHintVisible).to.be.equal(true);
@@ -324,8 +324,8 @@ describe('Typeahead', function() {
 
         it('should not change the selected index if there is no `options`', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead />
-                );
+                <Typeahead />
+            );
 
             typeaheadInstance.navigate(-1);
             expect(typeaheadInstance.state.selectedIndex).to.be.equal(-1);
@@ -336,10 +336,10 @@ describe('Typeahead', function() {
 
         it('should not change the selected index if `options` is empty', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        options={[]}
-                    />
-                );
+                <Typeahead
+                    options={[]}
+                />
+            );
 
             typeaheadInstance.navigate(-1);
             expect(typeaheadInstance.state.selectedIndex).to.be.equal(-1);
@@ -350,16 +350,16 @@ describe('Typeahead', function() {
 
         it('should increment and decrement the selected index if we navigate down and up respectively', function() {
             var OptionTemplate = React.createClass({
-                    render: function() {
-                        return <p>{this.props.data}</p>
-                    }
-                }),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        options={['a', 'b', 'c']}
-                        optionTemplate={OptionTemplate}
-                    />
-                );
+                render: function() {
+                    return <p>{this.props.data}</p>
+                }
+            });
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    options={['a', 'b', 'c']}
+                    optionTemplate={OptionTemplate}
+                />
+            );
 
             typeaheadInstance.navigate(1);
             expect(typeaheadInstance.state.selectedIndex).to.be.equal(0);
@@ -370,17 +370,17 @@ describe('Typeahead', function() {
 
         it('should wrap the selected index if we navigate up before the input and down past the last item respectively', function() {
             var OptionTemplate = React.createClass({
-                    render: function() {
-                        return <p>{this.props.data}</p>
-                    }
-                }),
-                options = ['a', 'b', 'c'],
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        options={options}
-                        optionTemplate={OptionTemplate}
-                    />
-                );
+                render: function() {
+                    return <p>{this.props.data}</p>
+                }
+            });
+            var options = ['a', 'b', 'c'];
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    options={options}
+                    optionTemplate={OptionTemplate}
+                />
+            );
 
             typeaheadInstance.navigate(-1);
             expect(typeaheadInstance.state.selectedIndex).to.be.equal(options.length - 1);
@@ -393,16 +393,16 @@ describe('Typeahead', function() {
     describe('#handleKeyDown', function() {
         describe('Tab/End', function() {
             it('should complete the hint if it is visible', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    );
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
 
                 // Put Typeahead in a state where the hint and dropdown is visible.
                 typeaheadInstance.handleChange({ target: { value: '' } });
@@ -422,16 +422,16 @@ describe('Typeahead', function() {
             });
 
             it('should not complete the hint if the hint is not visible', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    );
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
 
                 ['Tab', 'End'].forEach(function(key) {
                     var preventDefault = sinon.spy(),
@@ -451,16 +451,16 @@ describe('Typeahead', function() {
             });
 
             it('should not complete the hint if shift is pressed', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    );
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
 
                 // Put Typeahead in a state where the hint and dropdown is visible.
                 typeaheadInstance.handleChange({
@@ -470,13 +470,13 @@ describe('Typeahead', function() {
                 });
 
                 ['Tab', 'End'].forEach(function(key) {
-                    var preventDefault = sinon.spy(),
-                        eventData = {
-                            key: key,
-                            shiftKey: true,
-                            timestamp: Date.now(),
-                            preventDefault: preventDefault
-                        };
+                    var preventDefault = sinon.spy();
+                    var eventData = {
+                        key: key,
+                        shiftKey: true,
+                        timestamp: Date.now(),
+                        preventDefault: preventDefault
+                    };
 
                     typeaheadInstance.handleKeyDown(eventData);
                     expect(preventDefault).to.have.not.been.called;
@@ -485,16 +485,16 @@ describe('Typeahead', function() {
             });
 
             it('should complete the hint if the the hint is visible and the input value is rtl', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='شزذ'
-                            handleHint={function() {
-                                return 'شزذيثبل';
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    );
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='شزذ'
+                        handleHint={function() {
+                            return 'شزذيثبل';
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
 
                 // Put Typeahead in a state where the hint and dropdown is visible.
                 typeaheadInstance.handleChange({ target: { value: '' } });
@@ -521,27 +521,26 @@ describe('Typeahead', function() {
 
             describe('in rtl languages', function() {
                 it('should complete the hint if it is visible', function() {
-                    var inputValue = 'شزذ',
-                        handleComplete = sinon.spy(),
-                        typeaheadInstance = ReactDOM.render(
-                            <Typeahead
-                                inputValue={inputValue}
-                                handleHint={function() {
-                                    return 'شزذيثب';
-                                }}
-                                onComplete={handleComplete}
-                            />,
-                            this.iframeDiv
-                        ),
-                        eventData = {
-                            key: 'ArrowLeft'
-                        },
-                        inputDOMNode =
-                            ReactDOM.findDOMNode(
-                                TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
-                            ),
-                        startRange = inputValue.length,
-                        endRange = inputValue.length
+                    var inputValue = 'شزذ';
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = ReactDOM.render(
+                        <Typeahead
+                            inputValue={inputValue}
+                            handleHint={function() {
+                                return 'شزذيثب';
+                            }}
+                            onComplete={handleComplete}
+                        />,
+                        this.iframeDiv
+                    );
+                    var eventData = {
+                        key: 'ArrowLeft'
+                    };
+                    var inputDOMNode = ReactDOM.findDOMNode(
+                        TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
+                    );
+                    var startRange = inputValue.length;
+                    var endRange = inputValue.length;
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
                     typeaheadInstance.handleChange({ target: { value: '' } });
@@ -555,27 +554,27 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if the cursor is not at the end', function() {
-                    var handleComplete = sinon.spy(),
-                        inputValue = 'شزذ',
-                        typeaheadInstance = ReactDOM.render(
-                            <Typeahead
-                                inputValue={inputValue}
-                                handleHint={function() {
-                                    return 'ezequiel';
-                                }}
-                                onComplete={handleComplete}
-                            />,
-                            this.iframeDiv
-                        ),
-                        eventData = {
-                            key: 'ArrowLeft'
-                        },
-                        inputDOMNode =
-                            ReactDOM.findDOMNode(
-                                TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
-                            ),
-                        startRange = Math.floor(inputValue.length / 2),
-                        endRange = Math.floor(inputValue.length / 2);
+                    var handleComplete = sinon.spy();
+                    var inputValue = 'شزذ';
+                    var typeaheadInstance = ReactDOM.render(
+                        <Typeahead
+                            inputValue={inputValue}
+                            handleHint={function() {
+                                return 'ezequiel';
+                            }}
+                            onComplete={handleComplete}
+                        />,
+                        this.iframeDiv
+                    );
+                    var eventData = {
+                        key: 'ArrowLeft'
+                    };
+                    var inputDOMNode =
+                        ReactDOM.findDOMNode(
+                            TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
+                        );
+                    var startRange = Math.floor(inputValue.length / 2);
+                    var endRange = Math.floor(inputValue.length / 2);
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
                     typeaheadInstance.handleChange({ target: { value: '' } });
@@ -588,19 +587,19 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if the hint is not visible', function() {
-                    var handleComplete = sinon.spy(),
-                        typeaheadInstance = TestUtils.renderIntoDocument(
-                            <Typeahead
-                                inputValue='شزذ'
-                                handleHint={function() {
-                                    return 'شزذيثب';
-                                }}
-                                onComplete={handleComplete}
-                            />
-                        ),
-                        eventData = {
-                            key: 'ArrowLeft'
-                        };
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = TestUtils.renderIntoDocument(
+                        <Typeahead
+                            inputValue='شزذ'
+                            handleHint={function() {
+                                return 'شزذيثب';
+                            }}
+                            onComplete={handleComplete}
+                        />
+                    );
+                    var eventData = {
+                        key: 'ArrowLeft'
+                    };
 
                     typeaheadInstance.handleKeyDown(eventData);
 
@@ -608,20 +607,20 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if shift is pressed', function() {
-                    var handleComplete = sinon.spy(),
-                        typeaheadInstance = TestUtils.renderIntoDocument(
-                            <Typeahead
-                                inputValue='شزذ'
-                                handleHint={function() {
-                                    return 'شزذيثب';
-                                }}
-                                onComplete={handleComplete}
-                            />
-                        ),
-                        eventData = {
-                            key: 'ArrowLeft',
-                            shiftKey: true
-                        };
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = TestUtils.renderIntoDocument(
+                        <Typeahead
+                            inputValue='شزذ'
+                            handleHint={function() {
+                                return 'شزذيثب';
+                            }}
+                            onComplete={handleComplete}
+                        />
+                    );
+                    var eventData = {
+                        key: 'ArrowLeft',
+                        shiftKey: true
+                    };
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
                     typeaheadInstance.handleChange({ target: { value: '' } });
@@ -632,19 +631,19 @@ describe('Typeahead', function() {
             });
 
             it('should not complete the hint if the inputValue is ltr', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel'
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    ),
-                    eventData = {
-                        key: 'ArrowLeft'
-                    };
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel'
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
+                var eventData = {
+                    key: 'ArrowLeft'
+                };
 
                 // Put Typeahead in a state where the hint and dropdown is visible.
                 typeaheadInstance.handleChange({ target: { value: '' } });
@@ -661,27 +660,27 @@ describe('Typeahead', function() {
 
             describe('in ltr languages', function() {
                 it('should complete the hint if it is visible', function() {
-                    var inputValue = 'eze',
-                        handleComplete = sinon.spy(),
-                        typeaheadInstance = ReactDOM.render(
-                            <Typeahead
-                                inputValue={inputValue}
-                                handleHint={function() {
-                                    return 'ezequiel';
-                                }}
-                                onComplete={handleComplete}
-                            />,
-                            this.iframeDiv
-                        ),
-                        eventData = {
-                            key: 'ArrowRight'
-                        },
-                        inputDOMNode =
-                            ReactDOM.findDOMNode(
-                                TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
-                            ),
-                        startRange = inputValue.length,
-                        endRange = inputValue.length
+                    var inputValue = 'eze';
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = ReactDOM.render(
+                        <Typeahead
+                            inputValue={inputValue}
+                            handleHint={function() {
+                                return 'ezequiel';
+                            }}
+                            onComplete={handleComplete}
+                        />,
+                        this.iframeDiv
+                    );
+                    var eventData = {
+                        key: 'ArrowRight'
+                    };
+                    var inputDOMNode =
+                        ReactDOM.findDOMNode(
+                            TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
+                        );
+                    var startRange = inputValue.length;
+                    var endRange = inputValue.length;
 
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
@@ -696,30 +695,30 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if the cursor is not at the end', function() {
-                    var handleComplete = sinon.spy(),
-                        inputValue = 'eze',
-                        typeaheadInstance = ReactDOM.render(
-                            <Typeahead
-                                inputValue={inputValue}
-                                handleHint={function() {
-                                    return 'ezequiel';
-                                }}
-                                onComplete={handleComplete}
-                            />,
-                            this.iframeDiv
-                        ),
-                        eventData = {
-                            key: 'ArrowRight',
-                            target: {
-                                value: 'ezequiel'
-                            },
+                    var handleComplete = sinon.spy();
+                    var inputValue = 'eze';
+                    var typeaheadInstance = ReactDOM.render(
+                        <Typeahead
+                            inputValue={inputValue}
+                            handleHint={function() {
+                                return 'ezequiel';
+                            }}
+                            onComplete={handleComplete}
+                        />,
+                        this.iframeDiv
+                    );
+                    var eventData = {
+                        key: 'ArrowRight',
+                        target: {
+                            value: 'ezequiel'
                         },
-                        inputDOMNode =
-                            ReactDOM.findDOMNode(
-                                TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
-                            ),
-                        startRange = Math.floor(inputValue.length / 2),
-                        endRange = Math.floor(inputValue.length / 2);
+                    };
+                    var inputDOMNode =
+                        ReactDOM.findDOMNode(
+                            TestUtils.findRenderedDOMComponentWithClass(typeaheadInstance, 'react-typeahead-usertext')
+                        );
+                    var startRange = Math.floor(inputValue.length / 2);
+                    var endRange = Math.floor(inputValue.length / 2);
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
                     typeaheadInstance.handleChange({ target: { value: '' } });
@@ -731,19 +730,19 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if the hint is not visible', function() {
-                    var handleComplete = sinon.spy(),
-                        typeaheadInstance = TestUtils.renderIntoDocument(
-                            <Typeahead
-                                inputValue='eze'
-                                handleHint={function() {
-                                    return 'ezequiel';
-                                }}
-                                onComplete={handleComplete}
-                            />
-                        ),
-                        eventData = {
-                            key: 'ArrowRight'
-                        };
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = TestUtils.renderIntoDocument(
+                        <Typeahead
+                            inputValue='eze'
+                            handleHint={function() {
+                                return 'ezequiel';
+                            }}
+                            onComplete={handleComplete}
+                        />
+                    );
+                    var eventData = {
+                        key: 'ArrowRight'
+                    };
 
                     typeaheadInstance.handleKeyDown(eventData);
 
@@ -751,20 +750,20 @@ describe('Typeahead', function() {
                 });
 
                 it('should not complete the hint if shift is pressed', function() {
-                    var handleComplete = sinon.spy(),
-                        typeaheadInstance = TestUtils.renderIntoDocument(
-                            <Typeahead
-                                inputValue='eze'
-                                handleHint={function() {
-                                    return 'ezequiel';
-                                }}
-                                onComplete={handleComplete}
-                            />
-                        ),
-                        eventData = {
-                            key: 'ArrowRight',
-                            shiftKey: true
-                        };
+                    var handleComplete = sinon.spy();
+                    var typeaheadInstance = TestUtils.renderIntoDocument(
+                        <Typeahead
+                            inputValue='eze'
+                            handleHint={function() {
+                                return 'ezequiel';
+                            }}
+                            onComplete={handleComplete}
+                        />
+                    );
+                    var eventData = {
+                        key: 'ArrowRight',
+                        shiftKey: true
+                    };
 
                     // Put Typeahead in a state where the hint and dropdown is visible.
                     typeaheadInstance.handleChange({ target: { value: '' } });
@@ -775,19 +774,19 @@ describe('Typeahead', function() {
             });
 
             it('should not complete the hint if the inputValue is rtl', function() {
-                var handleComplete = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='شزذ'
-                            handleHint={function() {
-                                return 'شزذيثب';
-                            }}
-                            onComplete={handleComplete}
-                        />
-                    ),
-                    eventData = {
-                        key: 'ArrowRight'
-                    };
+                var handleComplete = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='شزذ'
+                        handleHint={function() {
+                            return 'شزذيثب';
+                        }}
+                        onComplete={handleComplete}
+                    />
+                );
+                var eventData = {
+                    key: 'ArrowRight'
+                };
 
                 // Put Typeahead in a state where the hint and dropdown is visible.
                 typeaheadInstance.handleChange({ target: { value: '' } });
@@ -799,16 +798,16 @@ describe('Typeahead', function() {
 
         describe('Enter/Escape', function() {
             it('should hide the hint', function() {
-                var handleChange = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onChange={handleChange}
-                        />
-                    );
+                var handleChange = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onChange={handleChange}
+                    />
+                );
 
                 ['Enter', 'Escape'].forEach(function(key) {
                     var eventData = {
@@ -825,16 +824,16 @@ describe('Typeahead', function() {
             });
 
             it('should hide the dropdown', function() {
-                var handleChange = sinon.spy(),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onChange={handleChange}
-                        />
-                    );
+                var handleChange = sinon.spy();
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onChange={handleChange}
+                    />
+                );
 
                 ['Enter', 'Escape'].forEach(function(key) {
                     var eventData = {
@@ -853,23 +852,23 @@ describe('Typeahead', function() {
 
         describe('ArrowDown/ArrowUp', function() {
             it('should show the dropdown if there is `options`', function() {
-                 var handleChange = sinon.spy(),
-                    OptionTemplate = React.createClass({
-                        render: function() {
-                            return <p>{this.props.data}</p>
-                        }
-                    }),
-                    typeaheadInstance = TestUtils.renderIntoDocument(
-                        <Typeahead
-                            inputValue='eze'
-                            handleHint={function() {
-                                return 'ezequiel';
-                            }}
-                            onChange={handleChange}
-                            options={['a', 'b', 'c']}
-                            optionTemplate={OptionTemplate}
-                        />
-                    );
+                var handleChange = sinon.spy();
+                var OptionTemplate = React.createClass({
+                    render: function() {
+                        return <p>{this.props.data}</p>
+                    }
+                });
+                var typeaheadInstance = TestUtils.renderIntoDocument(
+                    <Typeahead
+                        inputValue='eze'
+                        handleHint={function() {
+                            return 'ezequiel';
+                        }}
+                        onChange={handleChange}
+                        options={['a', 'b', 'c']}
+                        optionTemplate={OptionTemplate}
+                    />
+                );
 
                 ['ArrowUp', 'ArrowDown'].forEach(function(key) {
                     var preventDefault = sinon.spy(),
@@ -890,16 +889,16 @@ describe('Typeahead', function() {
         });
 
         it('should not show the dropdown if there is no `options`', function() {
-             var handleChange = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        handleHint={function() {
-                            return 'ezequiel';
-                        }}
-                        onChange={handleChange}
-                    />
-                );
+            var handleChange = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    inputValue='eze'
+                    handleHint={function() {
+                        return 'ezequiel';
+                    }}
+                    onChange={handleChange}
+                />
+            );
 
             ['ArrowUp', 'ArrowDown'].forEach(function(key) {
                 var preventDefault = sinon.spy(),
@@ -916,12 +915,12 @@ describe('Typeahead', function() {
         });
 
         it('should not call `onOptionChange` if there is no `options`', function() {
-            var handleOptionChange = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onOptionChange={handleOptionChange}
-                    />
-                );
+            var handleOptionChange = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onOptionChange={handleOptionChange}
+                />
+            );
 
             ['ArrowUp', 'ArrowDown'].forEach(function(key) {
                 var preventDefault = sinon.spy(),
@@ -938,13 +937,13 @@ describe('Typeahead', function() {
         });
 
         it('should not call `onOptionChange` if there is no `options`', function() {
-            var handleOptionChange = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        options={[]}
-                        onOptionChange={handleOptionChange}
-                    />
-                );
+            var handleOptionChange = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    options={[]}
+                    onOptionChange={handleOptionChange}
+                />
+            );
 
             ['ArrowUp', 'ArrowDown'].forEach(function(key) {
                 var preventDefault = sinon.spy(),
@@ -961,30 +960,30 @@ describe('Typeahead', function() {
         });
 
         it('should call `onOptionChange` with the correct values if we arrow down and up respectively', function() {
-            var handleOptionChange = sinon.spy(),
-                OptionTemplate = React.createClass({
-                    render: function() {
-                        return <p>{this.props.data}</p>
-                    }
-                }),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        options={['a', 'b', 'c']}
-                        optionTemplate={OptionTemplate}
-                        onOptionChange={handleOptionChange}
-                    />
-                ),
-                expected = ['a', 'eze'];
+            var handleOptionChange = sinon.spy();
+            var OptionTemplate = React.createClass({
+                render: function() {
+                    return <p>{this.props.data}</p>
+                }
+            });
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    inputValue='eze'
+                    options={['a', 'b', 'c']}
+                    optionTemplate={OptionTemplate}
+                    onOptionChange={handleOptionChange}
+                />
+            );
+            var expected = ['a', 'eze'];
 
             typeaheadInstance.showDropdown();
 
             ['ArrowDown', 'ArrowUp'].forEach(function(key, index) {
-                var preventDefault = sinon.spy(),
-                    eventData = {
-                        key: key,
-                        preventDefault: preventDefault
-                    };
+                var preventDefault = sinon.spy();
+                var eventData = {
+                    key: key,
+                    preventDefault: preventDefault
+                };
 
                 typeaheadInstance.handleKeyDown(eventData);
 
@@ -994,21 +993,21 @@ describe('Typeahead', function() {
         });
 
         it('should wrap and call `onOptionChange` if we arrow up before the input and down past the last item respectively', function() {
-            var handleOptionChange = sinon.spy(),
-                OptionTemplate = React.createClass({
-                    render: function() {
-                        return <p>{this.props.data}</p>
-                    }
-                }),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='ezeq'
-                        options={['a', 'b', 'c']}
-                        optionTemplate={OptionTemplate}
-                        onOptionChange={handleOptionChange}
-                    />
-                ),
-                expected = ['c', 'ezeq'];
+            var handleOptionChange = sinon.spy();
+            var OptionTemplate = React.createClass({
+                render: function() {
+                    return <p>{this.props.data}</p>
+                }
+            });
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    inputValue='ezeq'
+                    options={['a', 'b', 'c']}
+                    optionTemplate={OptionTemplate}
+                    onOptionChange={handleOptionChange}
+                />
+            );
+            var expected = ['c', 'ezeq'];
 
             typeaheadInstance.showDropdown();
 
@@ -1031,13 +1030,13 @@ describe('Typeahead', function() {
     describe('#handleOptionClick', function() {
         it('should call `focus`', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='una'
-                        handleHint={function() {
-                            return 'unabashedly';
-                        }}
-                    />
-                );
+                <Typeahead
+                    inputValue='una'
+                    handleHint={function() {
+                        return 'unabashedly';
+                    }}
+                />
+            );
             var focus = sinon.spy(typeaheadInstance, 'focus');
 
             // Put Typeahead in a state where it can be closed.
@@ -1050,13 +1049,13 @@ describe('Typeahead', function() {
 
         it('should hide the hint', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        handleHint={function() {
-                            return 'ezequiel';
-                        }}
-                    />
-                );
+                <Typeahead
+                    inputValue='eze'
+                    handleHint={function() {
+                        return 'ezequiel';
+                    }}
+                />
+            );
 
             // Put  Typeahead in a state where the hint is visible.
             typeaheadInstance.handleClick();
@@ -1068,13 +1067,13 @@ describe('Typeahead', function() {
 
         it('should hide the dropdown', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        handleHint={function() {
-                            return 'ezequiel';
-                        }}
-                    />
-                );
+                <Typeahead
+                    inputValue='eze'
+                    handleHint={function() {
+                        return 'ezequiel';
+                    }}
+                />
+            );
 
             // Put  Typeahead in a state where the hint is visible.
             typeaheadInstance.handleClick();
@@ -1086,8 +1085,8 @@ describe('Typeahead', function() {
 
         it('should set the selected index to the index of the item that was clicked', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead />
-                );
+                <Typeahead />
+            );
 
             typeaheadInstance.handleOptionClick(1337);
 
@@ -1095,12 +1094,12 @@ describe('Typeahead', function() {
         });
 
         it('should call `onOptionClick` if passed in', function() {
-            var handleOptionClick = sinon.spy(),
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        onOptionClick={handleOptionClick}
-                    />
-                );
+            var handleOptionClick = sinon.spy();
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    onOptionClick={handleOptionClick}
+                />
+            );
 
             typeaheadInstance.handleOptionClick();
 
@@ -1108,24 +1107,24 @@ describe('Typeahead', function() {
         });
 
         it('should pass the event object to `onOptionClick` if passed in', function() {
-            var handleOptionClick = sinon.spy(),
-                OptionTemplate = React.createClass({
-                    render: function() {
-                        return <p>{this.props.data}</p>
-                    }
-                }),
-                options = ['a', 'b', 'c'],
-                typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        options={options}
-                        optionTemplate={OptionTemplate}
-                        onOptionClick={handleOptionClick}
-                    />
-                ),
-                eventData = {
-                    timestamp: Date.now()
-                },
-                index = 1;
+            var handleOptionClick = sinon.spy();
+            var OptionTemplate = React.createClass({
+                render: function() {
+                    return <p>{this.props.data}</p>
+                }
+            });
+            var options = ['a', 'b', 'c'];
+            var typeaheadInstance = TestUtils.renderIntoDocument(
+                <Typeahead
+                    options={options}
+                    optionTemplate={OptionTemplate}
+                    onOptionClick={handleOptionClick}
+                />
+            );
+            var eventData = {
+                timestamp: Date.now()
+            };
+            var index = 1;
 
             typeaheadInstance.handleOptionClick(index, eventData);
 
@@ -1136,13 +1135,13 @@ describe('Typeahead', function() {
     describe('#handleWindowClose', function() {
         it('should hide the hint and dropdown if `event.target` is outside of typeahead', function() {
             var typeaheadInstance = TestUtils.renderIntoDocument(
-                    <Typeahead
-                        inputValue='eze'
-                        handleHint={function() {
-                            return 'ezequiel';
-                        }}
-                    />
-                );
+                <Typeahead
+                    inputValue='eze'
+                    handleHint={function() {
+                        return 'ezequiel';
+                    }}
+                />
+            );
 
            // Put Typeahead in a state where the hint and dropdown is visible.
            typeaheadInstance.handleChange({ target: { value: '' } });
