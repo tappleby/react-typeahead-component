@@ -40,6 +40,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^6.2.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^3.5.0",
     "insert-css": "^0.2.0",
@@ -58,14 +59,12 @@
     "karma-webpack": "^2.0.9",
     "lolex": "^1.4.0",
     "mocha": "^2.2.4",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.14.0",
     "webpack": "^3.10.0"
-  },
-  "dependencies": {
-    "prop-types": "^15.6.0"
   }
 }

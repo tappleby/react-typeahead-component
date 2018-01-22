@@ -4,28 +4,28 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     PropTypes = require('prop-types');
 
-module.exports = React.createClass({
-    displayName: 'Aria Status',
+module.exports = class extends React.Component {
+    static displayName = 'Aria Status';
 
-    propTypes: process.env.NODE_ENV === 'production' ? {} : {
+    static propTypes = process.env.NODE_ENV === 'production' ? {} : {
         message: PropTypes.string
-    },
+    };
 
-    componentDidMount: function() {
+    componentDidMount() {
         var _this = this;
 
         // This is needed as `componentDidUpdate`
         // does not fire on the initial render.
         _this.setTextContent(_this.props.message);
-    },
+    }
 
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         var _this = this;
 
         _this.setTextContent(_this.props.message);
-    },
+    }
 
-    render: function() {
+    render() {
         return (
             <span
                 role='status'
@@ -36,13 +36,13 @@ module.exports = React.createClass({
                 }}
             />
         );
-    },
+    }
 
     // We cannot set `textContent` directly in `render`,
     // because React adds/deletes text nodes when rendering,
     // which confuses screen readers and doesn't cause them to read changes.
-    setTextContent: function(textContent) {
+    setTextContent = (textContent) => {
         // We could set `innerHTML`, but it's better to avoid it.
         ReactDOM.findDOMNode(this).textContent = textContent || '';
-    }
-});
+    };
+};

@@ -349,11 +349,12 @@ describe('Typeahead', function() {
         });
 
         it('should increment and decrement the selected index if we navigate down and up respectively', function() {
-            var OptionTemplate = React.createClass({
-                render: function() {
+            class OptionTemplate extends React.Component {
+                render() {
                     return <p>{this.props.data}</p>
                 }
-            });
+            }
+
             var typeaheadInstance = TestUtils.renderIntoDocument(
                 <Typeahead
                     options={['a', 'b', 'c']}
@@ -369,11 +370,12 @@ describe('Typeahead', function() {
         });
 
         it('should wrap the selected index if we navigate up before the input and down past the last item respectively', function() {
-            var OptionTemplate = React.createClass({
-                render: function() {
+            class OptionTemplate extends React.Component {
+                render() {
                     return <p>{this.props.data}</p>
                 }
-            });
+            }
+
             var options = ['a', 'b', 'c'];
             var typeaheadInstance = TestUtils.renderIntoDocument(
                 <Typeahead
@@ -853,11 +855,13 @@ describe('Typeahead', function() {
         describe('ArrowDown/ArrowUp', function() {
             it('should show the dropdown if there is `options`', function() {
                 var handleChange = sinon.spy();
-                var OptionTemplate = React.createClass({
-                    render: function() {
+
+                class OptionTemplate extends React.Component {
+                    render() {
                         return <p>{this.props.data}</p>
                     }
-                });
+                }
+
                 var typeaheadInstance = TestUtils.renderIntoDocument(
                     <Typeahead
                         inputValue='eze'
@@ -961,11 +965,13 @@ describe('Typeahead', function() {
 
         it('should call `onOptionChange` with the correct values if we arrow down and up respectively', function() {
             var handleOptionChange = sinon.spy();
-            var OptionTemplate = React.createClass({
-                render: function() {
+
+            class OptionTemplate extends React.Component {
+                render() {
                     return <p>{this.props.data}</p>
                 }
-            });
+            }
+
             var typeaheadInstance = TestUtils.renderIntoDocument(
                 <Typeahead
                     inputValue='eze'
@@ -994,11 +1000,13 @@ describe('Typeahead', function() {
 
         it('should wrap and call `onOptionChange` if we arrow up before the input and down past the last item respectively', function() {
             var handleOptionChange = sinon.spy();
-            var OptionTemplate = React.createClass({
-                render: function() {
+
+            class OptionTemplate extends React.Component {
+                render() {
                     return <p>{this.props.data}</p>
                 }
-            });
+            }
+
             var typeaheadInstance = TestUtils.renderIntoDocument(
                 <Typeahead
                     inputValue='ezeq'
@@ -1023,7 +1031,6 @@ describe('Typeahead', function() {
                 expect(handleOptionChange).to.have.been.calledWith(eventData, expected[index]);
                 expect(preventDefault).to.have.been.called;
             });
-
         });
     });
 
@@ -1108,11 +1115,13 @@ describe('Typeahead', function() {
 
         it('should pass the event object to `onOptionClick` if passed in', function() {
             var handleOptionClick = sinon.spy();
-            var OptionTemplate = React.createClass({
-                render: function() {
+
+            class OptionTemplate extends React.Component {
+                render() {
                     return <p>{this.props.data}</p>
                 }
-            });
+            }
+
             var options = ['a', 'b', 'c'];
             var typeaheadInstance = TestUtils.renderIntoDocument(
                 <Typeahead

@@ -4,22 +4,20 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     PropTypes = require('prop-types');
 
-module.exports = React.createClass({
-    displayName: 'Input',
+module.exports = class extends React.Component {
+    static displayName = 'Input';
 
-    propTypes: process.env.NODE_ENV === 'production' ? {} : {
+    static propTypes = process.env.NODE_ENV === 'production' ? {} : {
         value: PropTypes.string,
         onChange: PropTypes.func
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            value: '',
-            onChange: function() {}
-        };
-    },
+    static defaultProps = {
+        value: '',
+        onChange: function() {}
+    };
 
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         var _this = this,
             dir = _this.props.dir;
 
@@ -32,9 +30,9 @@ module.exports = React.createClass({
             // to an empty string, Chrome assumes LTR, which isn't what we want.
             ReactDOM.findDOMNode(_this).removeAttribute('dir');
         }
-    },
+    }
 
-    render: function() {
+    render() {
         var _this = this;
 
         return (
@@ -43,9 +41,9 @@ module.exports = React.createClass({
                 onChange={_this.handleChange}
             />
         );
-    },
+    }
 
-    handleChange: function(event) {
+    handleChange = (event) => {
         var props = this.props;
 
         // There are several React bugs in IE,
@@ -56,18 +54,18 @@ module.exports = React.createClass({
         if (event.target.value !== props.value) {
             props.onChange(event);
         }
-    },
+    };
 
-    blur: function() {
+    blur = () => {
         ReactDOM.findDOMNode(this).blur();
-    },
+    };
 
-    isCursorAtEnd: function() {
+    isCursorAtEnd = () => {
         var _this = this,
             inputDOMNode = ReactDOM.findDOMNode(_this),
             valueLength = _this.props.value.length;
 
         return inputDOMNode.selectionStart === valueLength &&
                inputDOMNode.selectionEnd === valueLength;
-    }
-});
+    };
+};

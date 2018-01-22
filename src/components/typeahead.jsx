@@ -8,20 +8,18 @@ var React = require('react'),
     getTextDirection = require('../utils/get_text_direction'),
     noop = function() {};
 
-module.exports = React.createClass({
-    displayName: 'Typeahead',
+module.exports = class extends React.Component {
+    static displayName = 'Typeahead';
 
-    statics: {
-        getInstanceCount: (function() {
-            var count = 0;
+    static getInstanceCount = function() {
+        var count = 0;
 
-            return function() {
-                return ++count;
-            };
-        }())
-    },
+        return function() {
+            return ++count;
+        };
+    }();
 
-    propTypes: process.env.NODE_ENV === 'production' ? {} : {
+    static propTypes = process.env.NODE_ENV === 'production' ? {} : {
         inputId: PropTypes.string,
         inputName: PropTypes.string,
         className: PropTypes.string,
@@ -47,46 +45,42 @@ module.exports = React.createClass({
         optionTemplate: PropTypes.func.isRequired,
         getMessageForOption: PropTypes.func,
         getMessageForIncomingOptions: PropTypes.func
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            className: '',
-            inputValue: '',
-            options: [],
-            hoverSelect: true,
-            onFocus: noop,
-            onKeyDown: noop,
-            onChange: noop,
-            onInputClick: noop,
-            handleHint: function() {
-                return '';
-            },
-            onOptionClick: noop,
-            onOptionChange: noop,
-            onComplete:  noop,
-            onDropdownOpen: noop,
-            onDropdownClose: noop,
-            getMessageForOption: function() {
-                return '';
-            },
-            getMessageForIncomingOptions: function(number) {
-                return (
-                    number + ' suggestions are available. Use up and down arrows to select.'
-                );
-            }
-        };
-     },
+    static defaultProps = {
+        className: '',
+        inputValue: '',
+        options: [],
+        hoverSelect: true,
+        onFocus: noop,
+        onKeyDown: noop,
+        onChange: noop,
+        onInputClick: noop,
+        handleHint: function() {
+            return '';
+        },
+        onOptionClick: noop,
+        onOptionChange: noop,
+        onComplete:  noop,
+        onDropdownOpen: noop,
+        onDropdownClose: noop,
+        getMessageForOption: function() {
+            return '';
+        },
+        getMessageForIncomingOptions: function(number) {
+            return (
+                number + ' suggestions are available. Use up and down arrows to select.'
+            );
+        }
+    };
 
-    getInitialState: function() {
-        return {
-            selectedIndex: -1,
-            isHintVisible: false,
-            isDropdownVisible: false
-        };
-    },
+    state = {
+        selectedIndex: -1,
+        isHintVisible: false,
+        isDropdownVisible: false
+    };
 
-    componentWillMount: function() {
+    componentWillMount() {
         var _this = this,
             uniqueId = this.constructor.getInstanceCount();
 
@@ -94,9 +88,9 @@ module.exports = React.createClass({
         _this.previousInputValue = null;
         _this.activeDescendantId = 'react-typeahead-activedescendant-' + uniqueId;
         _this.optionsId = 'react-typeahead-options-' + uniqueId;
-    },
+    }
 
-    componentDidMount: function() {
+    componentDidMount() {
         var addEvent = window.addEventListener,
             handleWindowClose = this.handleWindowClose;
 
@@ -106,17 +100,17 @@ module.exports = React.createClass({
 
         // If we click anywhere outside of Typeahead, close the dropdown.
         addEvent('click', handleWindowClose, false);
-    },
+    }
 
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         var removeEvent = window.removeEventListener,
             handleWindowClose = this.handleWindowClose;
 
         removeEvent('focus', handleWindowClose, true);
         removeEvent('click', handleWindowClose, false);
-    },
+    }
 
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps(nextProps) {
         var nextValue = nextProps.inputValue,
             nextOptions = nextProps.options,
             valueLength = nextValue.length,
@@ -128,9 +122,9 @@ module.exports = React.createClass({
         this.setState({
             isHintVisible: isHintVisible
         });
-    },
+    }
 
-    render: function() {
+    render() {
         var _this = this;
 
         return (
@@ -145,9 +139,9 @@ module.exports = React.createClass({
                 {_this.renderAriaMessageForIncomingOptions()}
             </div>
         );
-    },
+    }
 
-    renderInput: function() {
+    renderInput = () => {
         var _this = this,
             state = _this.state,
             props = _this.props,
@@ -206,9 +200,9 @@ module.exports = React.createClass({
                 />
             </div>
         );
-    },
+    };
 
-    renderDropdown: function() {
+    renderDropdown = () => {
         var _this = this,
             state = _this.state,
             props = _this.props,
@@ -260,9 +254,9 @@ module.exports = React.createClass({
                 }
             </ul>
         );
-    },
+    };
 
-    renderAriaMessageForOptions: function() {
+    renderAriaMessageForOptions = () => {
         var _this = this,
             props = _this.props,
             inputValue = props.inputValue,
@@ -273,9 +267,9 @@ module.exports = React.createClass({
                 message={props.getMessageForOption(option) || inputValue}
             />
         );
-    },
+    };
 
-    renderAriaMessageForIncomingOptions: function() {
+    renderAriaMessageForIncomingOptions = () => {
         var props = this.props;
 
         return (
@@ -283,9 +277,9 @@ module.exports = React.createClass({
                 message={props.getMessageForIncomingOptions(props.options.length)}
             />
         );
-    },
+    };
 
-    showDropdown: function() {
+    showDropdown = () => {
         var _this = this;
 
         if (!_this.state.isDropdownVisible) {
@@ -295,9 +289,9 @@ module.exports = React.createClass({
                 _this.props.onDropdownOpen();
             });
         }
-    },
+    };
 
-    hideDropdown: function() {
+    hideDropdown = () => {
         var _this = this;
 
         if (_this.state.isDropdownVisible) {
@@ -307,9 +301,9 @@ module.exports = React.createClass({
                 _this.props.onDropdownClose();
             });
         }
-    },
+    };
 
-    showHint: function() {
+    showHint = () => {
         var _this = this,
             props = _this.props,
             inputValue = props.inputValue,
@@ -322,21 +316,21 @@ module.exports = React.createClass({
         _this.setState({
             isHintVisible: isHintVisible
         });
-    },
+    };
 
-    hideHint: function() {
+    hideHint = () => {
         this.setState({
             isHintVisible: false
         });
-    },
+    };
 
-    setSelectedIndex: function(index, callback) {
+    setSelectedIndex = (index, callback) => {
         this.setState({
             selectedIndex: index
         }, callback);
-    },
+    };
 
-    handleChange: function(event) {
+    handleChange = (event) => {
         var _this = this;
 
         _this.showHint();
@@ -344,27 +338,27 @@ module.exports = React.createClass({
         _this.setSelectedIndex(-1);
         _this.props.onChange(event);
         _this.userInputValue = event.target.value;
-    },
+    };
 
-    focus: function() {
+    focus = () => {
         ReactDOM.findDOMNode(this.refs.input).focus();
-    },
+    };
 
-    handleFocus: function(event) {
+    handleFocus = (event) => {
         var _this = this;
 
         _this.showDropdown();
         _this.props.onFocus(event);
-    },
+    };
 
-    handleClick: function(event) {
+    handleClick = (event) => {
         var _this = this;
 
         _this.showHint();
         _this.props.onInputClick(event);
-    },
+    };
 
-    navigate: function(direction, callback) {
+    navigate = (direction, callback) => {
         var _this = this,
             minIndex = -1,
             maxIndex = _this.props.options.length - 1,
@@ -377,9 +371,9 @@ module.exports = React.createClass({
         }
 
         _this.setSelectedIndex(index, callback);
-    },
+    };
 
-    handleKeyDown: function(event) {
+    handleKeyDown = (event) => {
         var _this = this,
             key = event.key,
             props = _this.props,
@@ -476,9 +470,9 @@ module.exports = React.createClass({
             optionData = index < 0 ? props.inputValue : props.options[index];
             props.onKeyDown(event, optionData, index);
         }
-    },
+    };
 
-    handleOptionClick: function(selectedIndex, event) {
+    handleOptionClick = (selectedIndex, event) => {
         var _this = this,
             props = _this.props;
 
@@ -487,25 +481,25 @@ module.exports = React.createClass({
         _this.hideDropdown();
         _this.setSelectedIndex(selectedIndex);
         props.onOptionClick(event, props.options[selectedIndex], selectedIndex);
-    },
+    };
 
-    handleOptionMouseOver: function(selectedIndex) {
+    handleOptionMouseOver = (selectedIndex) => {
         var _this = this;
 
         if (_this.props.hoverSelect) {
             _this.setSelectedIndex(selectedIndex);
         }
-    },
+    };
 
-    handleMouseOut: function() {
+    handleMouseOut = () => {
         var _this = this;
 
         if (_this.props.hoverSelect) {
             _this.setSelectedIndex(-1);
         }
-    },
+    };
 
-    handleWindowClose: function(event) {
+    handleWindowClose = (event) => {
         var _this = this,
             target = event.target;
 
@@ -513,5 +507,5 @@ module.exports = React.createClass({
             _this.hideHint();
             _this.hideDropdown();
         }
-    }
-});
+    };
+};

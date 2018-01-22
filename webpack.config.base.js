@@ -14,10 +14,18 @@ var reactDomExternal = {
   amd: 'react-dom'
 };
 
+var propTypesExternal = {
+  root: 'PropTypes',
+  commonjs2: 'prop-types',
+  commonjs: 'prop-types',
+  amd: 'prop-types'
+};
+
 module.exports = {
   externals: {
     'react': reactExternal,
-    'react-dom': reactDomExternal
+    'react-dom': reactDomExternal,
+    'prop-types': propTypesExternal
   },
   module: {
     rules: [
